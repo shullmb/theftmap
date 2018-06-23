@@ -1,0 +1,31 @@
+{
+  "name": "theftmap",
+  "version": "1.0.0",
+  "description": "a web app for bike theft data visualization",
+  "main": "server.js",
+  "scripts": {
+    "test": "NODE_ENV=test mocha",
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shullmb/theftmap.git"
+  },
+  "author": "Michael Shull",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shullmb/theftmap/issues"
+  },
+  "homepage": "https://github.com/shullmb/theftmap#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "supertest": "^3.1.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^6.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "express-ejs-layouts": "^2.4.0"
+  }
+}
