@@ -3,6 +3,12 @@
 ### Objective 
 Pull information about stolen bikes in your proximity to create a  Voronoi / Delaunay Projection overlay of map.
 
+### Project Planning & Tracking
+[Trello Board](https://trello.com/b/2pBLoWCO/wdi-project-2)
+
+### Wireframes
+[Adobe XD Prototyping](https://xd.adobe.com/view/71624733-4c11-4238-5975-802067b82b81-0753/)
+
 ### APIs Needed
 - Bike Index API
 - Map API to be selected 
@@ -26,6 +32,8 @@ ___
 - stolenness - all || proximity
 - distance 
 
+___
+### Gratitude
 
 
 
