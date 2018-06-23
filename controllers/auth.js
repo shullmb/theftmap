@@ -11,14 +11,16 @@ router.get('/signup', (req,res) => {
     res.sendStatus(200);
 })
 
-// POST login - 
+// POST login - redirect to map index
 router.post('/login', (req,res) => {
-    res.sendStatus(200);
+    // post logic goes here
+    res.send('ok')
 })
 
-// POST login - 
+// POST sign in - redirect to map new
 router.post('/signup', (req,res) => {
-    res.sendStatus(200);
+    // post logic goes here
+    res.send('ok');
 })
 
 module.exports = router;
