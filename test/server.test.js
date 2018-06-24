@@ -7,5 +7,5 @@ describe('App', () => {
         request(app).get('/').expect(200, done);
     })
 
-});ß
+});
 
