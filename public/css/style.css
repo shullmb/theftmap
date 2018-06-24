@@ -1,7 +1,22 @@
+body {
+    background-image: url('../img/topography.png');
+    background-repeat: repeat;
+}
+
+main {
+    background: #fff;
+    min-height: 80vh;
+    margin-top: 0;
+}
+
 nav .brand-logo, nav ul, nav ul a {
     color: black;
 }
 
 nav .brand-logo {
     font-family: Megrim, Arial, Helvetica, sans-serif;
+}
+
+nav ul a {
+    text-transform: uppercase;
 }

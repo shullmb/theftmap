@@ -7,7 +7,7 @@ Pull information about stolen bikes in your proximity to create a  Voronoi / Del
 [Trello Board](https://trello.com/b/2pBLoWCO/wdi-project-2)
 
 ### Wireframes
-[Adobe XD Prototyping](https://xd.adobe.com/view/71624733-4c11-4238-5975-802067b82b81-0753/)
+[Adobe XD Prototyping](https://xd.adobe.com/view/62c33da6-84f4-41d5-5e6e-0b4706678d63-14f2/)
 
 ### APIs Needed
 - Bike Index API
