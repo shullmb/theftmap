@@ -4,8 +4,8 @@
   "description": "a web app for bike theft data visualization",
   "main": "server.js",
   "scripts": {
-    "test": "NODE_ENV=test mocha",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "test": "NODE_ENV=test node_modules/mocha/bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -24,11 +24,13 @@
   "dependencies": {
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
     "dotenv": "^6.0.0",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-ejs-layouts": "^2.4.0",
     "express-session": "^1.15.6",
+    "mocha": "^5.2.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pg": "^6.4.2",
