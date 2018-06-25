@@ -43,13 +43,12 @@ router.post('/signup', (req,res) => {
 router.post('/login', passport.authenticate('local',{
     successRedirect: '/maps',
     failureRedirect: '/auth/login',
-    successFlash: 'Welcome to the show',
     failureFlash: 'Invalid credentials - please try again.'
 }))
 
 router.get('/logout', (req,res) => {
     req.logout();
-    // req.flash('success', 'You have logged out');
+    req.flash('success', 'You have logged out');
     res.redirect('/');
 })
 module.exports = router;
