@@ -3,16 +3,15 @@ const passport = require('../config/passportConfig');
 const db = require('../models');
 const router = express.Router();
 
-// GET /auth/login - send login form
-router.get('/login', (req,res) => {
-    res.render('auth/login')
-})
-
 // GET /auth/signup - send signup form
 router.get('/signup', (req,res) => {
     res.render('auth/signup')
 })
 
+// GET /auth/login - send login form
+router.get('/login', (req,res) => {
+    res.render('auth/login')
+})
 
 // POST /auth/sign in - redirect to map new
 router.post('/signup', (req,res) => {
@@ -24,6 +23,7 @@ router.post('/signup', (req,res) => {
         }
     }).spread( (user,created) => {
         if (created) {
+            console.log("TRYING TO LOG IN AFTER SIGNUP");
             passport.authenticate('local', {
                 successRedirect: '/maps/new',
                 successFlash: 'Welcome to THFTMAPPER - Create your first map!'
@@ -43,8 +43,8 @@ router.post('/signup', (req,res) => {
 router.post('/login', passport.authenticate('local',{
     successRedirect: '/maps',
     failureRedirect: '/auth/login',
-    // successFlash: 'Welcome to the show',
-    // failureFlash: 'Invalid credentials - please try again.'
+    successFlash: 'Welcome to the show',
+    failureFlash: 'Invalid credentials - please try again.'
 }))
 
 router.get('/logout', (req,res) => {

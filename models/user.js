@@ -43,11 +43,11 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
   };
 
-  user.prototype.validPassword = (passwordTyped) => {
-    return bcrypt.compareSync(passwordTyped,this.password);
+  user.prototype.validPassword = function(passwordTyped) {
+    return bcrypt.compareSync(passwordTyped, this.password);
   }
 
-  user.prototype.toJSON = () => {
+  user.prototype.toJSON = function() {
     let userData = this.get();
     delete userData.password;
     return userData

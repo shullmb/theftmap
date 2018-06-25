@@ -5,7 +5,6 @@ const bp = require('body-parser');
 const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('./config/passportConfig');
-const isLoggedIn = require('./middleware/isLoggedIn');
 
 const port = process.env.PORT || 3001;
 
@@ -40,7 +39,7 @@ app.get('/', (req,res) => {
 })
 
 app.use('/auth', require('./controllers/auth'));
-app.use('/map', require('./controllers/map'));
+app.use('/maps', require('./controllers/map'));
 
 const server = app.listen(port, () => {
     console.log("\x1b[35m\x1b[3m%s\x1b[0m",`*** server running on ${port} ***`);
