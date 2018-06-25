@@ -6,7 +6,10 @@ body {
 main {
     background: #fff;
     min-height: 80vh;
-    margin-top: 0;
+}
+
+.container {
+    margin-top: 1em;
 }
 
 nav .brand-logo, nav ul, nav ul a {
@@ -25,3 +28,4 @@ nav ul a {
     height: 70vh;
     margin: 10em auto;
 }
+

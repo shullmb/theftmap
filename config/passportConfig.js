@@ -19,12 +19,9 @@ passport.use(new LocalStrategy({
     db.user.find({
         where: {email: email}
     }).then((user) => {
-        console.log('JUST FOUND THE USER IN THE DB');
         if (!user || !user.validPassword(password)) {
-            console.log('BAD USER OR PASSWORD');
             cb(null, false);
         } else {
-            console.log('SUCCESSFULLY LOGGED IN');
             cb(null, user);
         }
     }).catch(cb);

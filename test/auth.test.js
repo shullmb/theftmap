@@ -17,7 +17,7 @@ describe('Auth Controller', function() {
   });
 
   describe('POST /auth/signup', function() {
-    it('should redirect to / on success', function(done) {
+    it('should redirect to /maps/new on success', function(done) {
       request(app).post('/auth/signup')
       .set('Content-Type', 'application/x-www-form-urlencoded')
       .send({
@@ -25,7 +25,7 @@ describe('Auth Controller', function() {
         name: 'Brian',
         password: 'password'
       })
-      .expect('Location', '/')
+      .expect('Location', '/maps/new')
       .expect(302, done);
     });
 
@@ -57,7 +57,7 @@ describe('Auth Controller', function() {
         email: 'new@new.co',
         password: 'password'
       })
-      .expect('Location', '/')
+      .expect('Location', '/maps')
       .expect(302, done);
     });
 
