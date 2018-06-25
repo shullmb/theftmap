@@ -20,3 +20,8 @@ nav .brand-logo {
 nav ul a {
     text-transform: uppercase;
 }
+
+.auth-form {
+    height: 70vh;
+    margin: 10em auto;
+}

@@ -43,7 +43,7 @@ app.use('/auth', require('./controllers/auth'));
 app.use('/map', require('./controllers/map'));
 
 const server = app.listen(port, () => {
-    console.log(`*** server running on ${port} ***`);
+    console.log("\x1b[35m\x1b[3m%s\x1b[0m",`*** server running on ${port} ***`);
 })
 
 module.exports = server;
