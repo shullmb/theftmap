@@ -7,8 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         len: {
-          args: [1,12],
-          msg: "Your username must be between 1 & 12 characters long."
+          args: [1,99],
+          msg: "Your name must be at least 1 character long."
         }
       }
     },

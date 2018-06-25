@@ -26,6 +26,19 @@ nav ul a {
 
 .auth-form {
     height: 70vh;
-    margin: 10em auto;
+    display: flex;
+    align-content: center;
 }
 
+.flash {
+    padding: 1em 0.5em;
+    margin-top: 1em;
+    color: white;
+    font-weight: bold;
+}
+
+.alert {
+    top: 5em;
+    z-index: 10;
+    text-align: center;
+}
