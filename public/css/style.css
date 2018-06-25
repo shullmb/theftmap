@@ -10,6 +10,7 @@ main {
 
 .container {
     margin-top: 1em;
+    padding: auto 2em;
 }
 
 nav .brand-logo, nav ul, nav ul a {
