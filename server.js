@@ -12,6 +12,8 @@ const app = express();
 
 app.set('view engine', 'ejs');
 app.use(layout);
+app.set("layout extractScripts", true);
+
 app.use(express.static(__dirname + '/public'));
 app.use(bp.urlencoded({extended: false}));
 

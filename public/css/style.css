@@ -13,7 +13,7 @@ main {
     padding: auto 2em;
 }
 
-nav .brand-logo, nav ul, nav ul a {
+nav .brand-logo, nav ul, nav ul a, nav a {
     color: black;
 }
 
@@ -43,3 +43,5 @@ nav ul a {
     z-index: 10;
     text-align: center;
 }
+
+#map { height: 400px; width: 100%;}

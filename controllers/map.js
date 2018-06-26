@@ -7,12 +7,12 @@ const router = express.Router();
 
 // GET /maps
 router.get('/', (req,res) => {
-    res.render('maps/index');
+    res.render('maps/index', {extractScripts: true});
 })
 
 // GET /maps
 router.get('/new', (req,res) => {
-    res.render('maps/new');
+    res.render('maps/new', {key: process.env.MAPS_KEY});
 })
 
 // POST /maps - post map specs to db
@@ -29,16 +29,17 @@ router.post('/', (req,res) => {
 })
 
 // GET /maps/:id - show a specific map
-router.get('/maps/:id', (req,res) => {
-    db.map.findById(req.params.id).then((map) => {
-        res.render('/maps/show', {map});
-    }).catch( (error) => {
-        req.flash('error', error.message),
-        res.render('404');
-    })
+router.get('/:id', (req,res) => {
+    res.render('maps/show',{key: process.env.MAPS_KEY});
+    // db.map.findById(req.params.id).then((map) => {
+    //     res.render('/maps/show', {map});
+    // }).catch( (error) => {
+    //     req.flash('error', error.message),
+    //     res.render('404');
+    // })
 })
 
-router.delete('/maps/:id', (req,res) => {
+router.delete('/:id', (req,res) => {
     db.map.delete({
         where: {id: req.params.id}
     }).then( (data) => {

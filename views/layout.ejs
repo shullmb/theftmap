@@ -16,11 +16,19 @@
             <nav>
                 <div class="nav-wrapper white">
                     <a href="/" class="brand-logo center">THFTMPPR</a>
+                    <a href="#" data-target="mobile-menu" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul class="left hide-on-med-and-down">
                         <li><a href="/">Home</a></li>
                         <li><a href="/maps/new">Create</a></li>
                     </ul>
+                    <ul class="right hide-on-med-and-down">
                     <%- include partials/auth %>
+                    </ul>
+                    <ul class="sidenav" id="mobile-menu">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/maps/new">Create</a></li>
+                        <%- include partials/auth %>
+                    </ul>
                 </div>
             </nav>
         </header>
@@ -38,6 +46,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
     <!-- PUBLIC -->
     <script src="/js/script.js"></script>
+    <script>
+    </script>
+    <%- script %>
 </html>
     
             
