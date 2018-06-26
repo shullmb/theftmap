@@ -1,3 +1,5 @@
+
+
 function initMap() {
     // The location of Uluru
     var searchCenter = { lat: 47.60621, lng: -122.33207 };
