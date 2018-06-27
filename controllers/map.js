@@ -1,6 +1,6 @@
 const express = require('express');
 const request = require('request');
-// const async = require('async');
+const async = require('async');
 const rp = require('request-promise');
 const db = require('../models');
 const isLoggedIn = require('../middleware/isLoggedIn');
@@ -42,7 +42,7 @@ router.get('/:id', (req,res) => {
     // TO DO: trouble shoot res.send
     var bikeIndexRequest = function (theftId) {
         let bikeIndexUri = `https://bikeindex.org:443/api/v3/bikes/${theftId}`;
-        return function () {
+        return async.reflect(function () {
             request(bikeIndexUri, function (error, response, body) {
                 console.log("\x1b[41m%s\x1b[0m", "This shit actually fired");
                 let stolenRecord = JSON.parse(body).bike.stolen_record;
@@ -53,7 +53,7 @@ router.get('/:id', (req,res) => {
                     console.log(theftLocations);
                 }
             })
-        }
+        })
     }
     let theftIds = [];
     let theftLocations = [];
@@ -64,7 +64,10 @@ router.get('/:id', (req,res) => {
         thefts.forEach((theft) => {
             theftIds.push(bikeIndexRequest(theft.id));
         })
-        async.parallel(theftIds, () => {
+        async.parallel(theftIds, (err,results) => {
+            console.log(err);
+            console.log("\x1b[3m%s\x1b[0m", "WE ARE IN THE FINAL CALLBACK")
+            console.log("\x1b[3m%s\x1b[0m", results)
             res.send(theftLocations)
         })
 
