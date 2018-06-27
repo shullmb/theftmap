@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER
   }, {});
   map.associate = function(models) {
-    // associations can be defined here
+    models.map.belongsTo(models.user);
+    models.map.belongsToMany(models.bike, {through: "mapsBikes"})
   };
   return map;
 };

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
     model: DataTypes.STRING
   }, {});
   bike.associate = function(models) {
-    // associations can be defined here
+    models.bike.belongsToMany(models.map, {through: "mapsBikes"});
   };
   return bike;
 };
