@@ -7,15 +7,15 @@
     <div class=" col s12 l4">
         <!-- list of data points -->
         <ul>
-            <li>Stolen Bike 1 </li>
-            <li>Stolen Bike 2 </li>
-            <li>Stolen Bike 3 </li>
-            <li>Stolen Bike 4 </li>
-            <li>Stolen Bike 5 </li>
-            <li>Stolen Bike 6 </li>
+            <% bikes.forEach( (bike) => { %>
+            <li><a class="btn btn-small" href="<%= bike.value.url %>" target=_blank>See <%= bike.value.model %> on Bike Index</a></li>
+            <% }) %>
         </ul>
     </div>
 </div>
 
-<script src="/js/test.js"></script>
+<script> let bikes = <%- JSON.stringify(bikes) %>;
+
+</script>
+<script src="/js/plotBikes.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=key%>&callback=initMap"></script>

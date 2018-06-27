@@ -1,7 +1,7 @@
 const express = require('express');
 const request = require('request');
 const async = require('async');
-const rp = require('request-promise');
+const _ =require('lodash');
 const db = require('../models');
 const isLoggedIn = require('../middleware/isLoggedIn');
 const router = express.Router();
@@ -41,27 +41,28 @@ router.get('/:id', (req,res) => {
     // TO DO: add variables back into the bikeIndexList uri
     // TO DO: trouble shoot res.send
     let theftIds = [];
-    let theftLocations = [];
-    let bikeIndexList = `https://bikeindex.org:443/api/v3/search?page=1&per_page=50&location=98102&distance=10&stolenness=proximity`;
+    let bikeIndexList = `https://bikeindex.org:443/api/v3/search?page=1&per_page=20&location=98070&distance=10&stolenness=proximity`;
 
     request(bikeIndexList, (err, response, body) => {
         let thefts = JSON.parse(body).bikes;
-        // console.log("JUST GOT THEFTS FROM API!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         thefts.forEach((theft) => {
             theftIds.push(theft.id);
         })
-        // console.log("JUST LOOPED THRU THEFTS FROM API!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
         console.log(theftIds)
         let individualBikeRequests = theftIds.map( function(theftId) {
             let bikeIndexUri = `https://bikeindex.org:443/api/v3/bikes/${theftId}`;
             return function(cb) {
-                console.log("\x1b[40m%s\x1b[0m", "in parallel")
                 request(bikeIndexUri, function (error, response, body) {
-                    console.log("\x1b[41m%s\x1b[0m", "2ndary req fired!");
-                    let stolenRecord = JSON.parse(body).bike.stolen_record;
-                    if (stolenRecord.latitude !== null && stolenRecord.longitude !== null) {
-                        let location = { lat: stolenRecord.latitude, lng: stolenRecord.longitude }
-                        cb(null, location);
+                    let bike = JSON.parse(body).bike;
+                    if (bike.stolen_record.latitude !== null && bike.stolen_record.longitude !== null) {
+                        let bikeInfo = { 
+                            model: bike.title,
+                            url: bike.url,
+                            lat: bike.stolen_record.latitude, 
+                            lng: bike.stolen_record.longitude 
+                        }
+                        cb(null, bikeInfo);
                     } else {
                         cb(null)
                     }
@@ -72,10 +73,8 @@ router.get('/:id', (req,res) => {
         console.log(individualBikeRequests);
 
         async.parallel(async.reflectAll(individualBikeRequests), (err,results) => {
-
-            console.log("\x1b[36m%s\x1b[0m", "WE ARE IN THE FINAL CALLBACK");
-            // console.log(theftLocations);
-            res.send(results);
+            let bikes = _.compact(results);
+            res.render('maps/show', {bikes: bikes, key: process.env.MAPS_KEY});
         })
     })
 
