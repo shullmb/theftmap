@@ -1,5 +1,6 @@
 const express = require('express');
 const request = require('request');
+// const async = require('async');
 const rp = require('request-promise');
 const db = require('../models');
 const isLoggedIn = require('../middleware/isLoggedIn');
@@ -37,27 +38,64 @@ router.post('/', (req,res) => {
 
 // GET /maps/:id - show a specific map
 router.get('/:id', (req,res) => {
-    let bikeIndexList = `https://bikeindex.org:443/api/v3/search?page=1&per_page=25&location=${req.body.zip}&distance=${req.body.searchRadius}&stolenness=stolen`
-    let theftLocations = [];
-    rp(bikeIndexList, (err, response, body) => {
-        // console.log(body)
-
-    }).then( (body) => {
-        // console.log(theftLocations);        
-        let thefts = JSON.parse(body).bikes;
-        thefts.forEach((theft) => {
-            // console.log(theft);
-            let bikeIndexBike = `https://bikeindex.org:443/api/v3/bikes/${theft.id}`
-            rp(bikeIndexBike, (err, response, body) => {
-            }).then((body) => {
+    // TO DO: add variables back into the bikeIndexList uri
+    // TO DO: trouble shoot res.send
+    var bikeIndexRequest = function (theftId) {
+        let bikeIndexUri = `https://bikeindex.org:443/api/v3/bikes/${theftId}`;
+        return function () {
+            request(bikeIndexUri, function (error, response, body) {
+                console.log("\x1b[41m%s\x1b[0m", "This shit actually fired");
                 let stolenRecord = JSON.parse(body).bike.stolen_record;
                 if (stolenRecord.latitude !== null && stolenRecord.longitude !== null) {
                     let location = { lat: stolenRecord.latitude, lng: stolenRecord.longitude };
+                    console.log("\x1b[3m%s\x1b[0m", JSON.stringify(location));
                     theftLocations.push(location);
+                    console.log(theftLocations);
                 }
             })
+        }
+    }
+    let theftIds = [];
+    let theftLocations = [];
+    let bikeIndexList = `https://bikeindex.org:443/api/v3/search?page=1&per_page=25&location=98102&distance=10&stolenness=stolen`;
+
+    request(bikeIndexList, (err, response, body) => {
+        let thefts = JSON.parse(body).bikes;
+        thefts.forEach((theft) => {
+            theftIds.push(bikeIndexRequest(theft.id));
         })
+        async.parallel(theftIds, () => {
+            res.send(theftLocations)
+        })
+
     })
+
+})
+    // let theftLocations = [];
+    // let bikeIndexListOptions = {
+    //     uri: `https://bikeindex.org:443/api/v3/search?page=1&per_page=10&location=${req.body.zip}&distance=${req.body.searchRadius}&stolenness=stolen`,
+    //     json: true
+    // };
+    
+    // rp(bikeIndexListOptions).then( (body) => {
+    //     body.bikes.forEach((theft) => {
+    //         let bikeIndexBike = `https://bikeindex.org:443/api/v3/bikes/${theft.id}`
+
+    //         rp(bikeIndexBike, (err,response,body) => {
+    //             let stolenRecord = JSON.parse(body).bike.stolen_record;
+    //             if (stolenRecord.latitude !== null && stolenRecord.longitude !== null) {
+    //                 let location = { lat: stolenRecord.latitude, lng: stolenRecord.longitude };
+    //                 theftLocations.push(location);
+    //                 console.log(theftLocations);
+    //             }
+    //         })
+    //     })
+        
+    // }).then( () => {
+    //     res.send(theftLocations);
+    // }).catch((error) => {
+    //     console.log("\x1b[41m%s\x1b[0m", error);
+    // })
     // res.render('maps/show',{key: process.env.MAPS_KEY});
     // db.map.findById(req.params.id).then((map) => {
     //     res.render('/maps/show', {map});
@@ -65,7 +103,7 @@ router.get('/:id', (req,res) => {
     //     req.flash('error', error.message),
     //     res.render('404');
     // })
-})
+//})
 
 router.delete('/:id', (req,res) => {
     db.map.delete({
