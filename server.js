@@ -41,7 +41,7 @@ app.get('/', (req,res) => {
 })
 
 app.use('/auth', require('./controllers/auth'));
-app.use('/maps', require('./controllers/map'));
+app.use('/maps', require('./controllers/maps'));
 
 const server = app.listen(port, () => {
     console.log("\x1b[35m\x1b[3m%s\x1b[0m",`*** server running on ${port} ***`);

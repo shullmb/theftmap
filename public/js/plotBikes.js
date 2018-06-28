@@ -250,9 +250,7 @@ function initMap() {
     });
 }
 
-// bikes.forEach((bike) => {
-//     let mrk = new google.maps.Marker({ position: { lat: bike.lat, lng: bike.lng }, map: map, icon: "../img/do_pin.png" });
-// });
+
 
 function geocodeAddress(geocoder, resultsMap) {
     var zip = document.getElementById('zip').value;

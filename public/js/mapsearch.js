@@ -265,14 +265,13 @@ function initMap() {
 
     $('#searchArea').click( function(e) {
         e.preventDefault();
-        let zip = $('#zip').val();
         geocodeAddress(geocoder, map)
         console.log(centerMarker.position)  
     })
 }
 
 function geocodeAddress(geocoder, resultsMap) {
-    var zip = document.getElementById('zip').value;
+    var zip = document.getElementById('location').value;
     geocoder.geocode({ 'address': zip }, function (results, status) {
         if (status === 'OK') {
             resultsMap.setCenter(results[0].geometry.location);
