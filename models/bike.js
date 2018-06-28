@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     lat: DataTypes.FLOAT,
     lng: DataTypes.FLOAT,
     model: DataTypes.STRING,
-    bikeIndexId: DataTypes.INTEGER
+    bikeIndexId: DataTypes.INTEGER,
+    url: DataTypes.STRING
   }, {});
   bike.associate = function(models) {
     models.bike.belongsToMany(models.map, {through: "mapsBikes"});

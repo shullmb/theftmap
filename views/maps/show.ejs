@@ -6,11 +6,13 @@
     </div>
     <div class=" col s12 l4">
         <!-- list of data points -->
-        <ul>
-            <% bikes.forEach( (bike) => { %>
-            <li><a class="btn btn-small" href="<%= bike.url %>" target=_blank>See <%= bike.model %> on Bike Index</a></li>
-            <% }) %>
-        </ul>
+        <div class="collection">
+            
+                <% bikes.forEach( (bike) => { %>
+                <a class="collection-item" href="<%= bike.url %>" target=_blank> <%= bike.model %> on Bike Index <i class="material-icon">directions_bike</i></a>
+                <% }) %>
+            
+        </div>
     </div>
 </div>
 

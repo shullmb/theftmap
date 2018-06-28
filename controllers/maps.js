@@ -71,9 +71,9 @@ router.post('/', (req,res) => {
                         where: {bikeIndexId: bike.value.bikeIndexId},
                         defaults: {
                             model: bike.value.model,
-                            url: bike.value.url,
                             lat: bike.value.lat,
-                            lng: bike.value.lng
+                            lng: bike.value.lng,
+                            url: bike.value.url
                         }
                     }).spread((bike,created) => {
                         map.addBike(bike).then( ()=> {
