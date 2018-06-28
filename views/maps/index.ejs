@@ -1,18 +1,21 @@
 <h1>MAP INDEX</h1>
 
   <div class="row">
-
-    <div class="col s6 m6 l3">
-      <div class="card">
-        <div class="card-image">
-          <img src="/img/theftmap.png">
-          <span class="card-title">map 1</span>
-        </div>
-        <div class="card-content">
-          <p>PLACEHOLDER</p>
+<% maps.forEach( (map, i) => { %>
+    <a href="/maps/<%= map.id %>">
+      <div class="col s6 m6 l3">
+        <div class="card">
+          <div class="card-image">
+            <img src="/img/theftmap.png">
+            <span class="card-title">Map <%= i %> </span>
+          </div>
+          <div class="card-content">
+            <p><%= map.location %></p>
+          </div>
         </div>
       </div>
-    </div>
+    </a>
+<% }) %> 
     <div class="col s6 m6 l3">
       <div class="card">
         <div class="card-image">

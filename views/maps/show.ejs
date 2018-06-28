@@ -14,8 +14,9 @@
     </div>
 </div>
 
-<script> let bikes = <%- JSON.stringify(bikes) %>;
-
+<script> 
+    let bikes = <%- JSON.stringify(bikes) %>;
+    let map = <%- JSON.stringify(map.location) %>;
 </script>
 <script src="/js/plotBikes.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=key%>&callback=initMap"></script>

@@ -223,10 +223,6 @@ const thftMapStyle = [
     }
 ]
 
-const doPin = "../img/do_pin.png";
-
-const searchCenter = { lat: 47.60621, lng: -122.33207 };
-
 function initMap() {
     map = new google.maps.Map(
         document.getElementById('map'), {
@@ -244,7 +240,7 @@ function initMap() {
     
     bikes.forEach((bike) => {
         let latLng = new google.maps.LatLng(bike.value.lat,bike.value.lng);
-        let mrk = new google.maps.Marker({ position: latLng, map: map, icon: "../img/do_pin.png" });
+        let mrk = new google.maps.Marker({ position: latLng, map: map, icon: doPin });
         bounds.extend(latLng);
         map.fitBounds(bounds);
     });
