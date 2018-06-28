@@ -78,7 +78,7 @@ router.post('/', (req,res) => {
                     }).spread((bike,created) => {
                         map.addBike(bike).then( ()=> {
                             req.flash('success', 'Map Saved!')
-                            res.redirect(`/maps/${map.id}`, { bikes: bikes, key: process.env.MAPS_KEY });
+                            res.redirect(`/maps/${map.id}`);
                         })
                     })
                 })
@@ -95,10 +95,12 @@ router.post('/', (req,res) => {
 router.get('/:id', isLoggedIn, (req,res) => {
     db.map.findById(req.params.id).then( (map) => {
         map.getBikes().then( (bikes) => {
-            res.render('maps/show', {maps,bikes});
+            res.render('maps/show', {map,bikes, key: process.env.MAPS_KEY});
         })
-    } )
-
+    }).catch( (error) => {
+        req.flash('error', `${error.message}. Please Try again.`);
+        res.render('/maps/index');
+    })
 })
 
 

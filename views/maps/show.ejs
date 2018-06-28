@@ -8,7 +8,7 @@
         <!-- list of data points -->
         <ul>
             <% bikes.forEach( (bike) => { %>
-            <li><a class="btn btn-small" href="<%= bike.value.url %>" target=_blank>See <%= bike.value.model %> on Bike Index</a></li>
+            <li><a class="btn btn-small" href="<%= bike.url %>" target=_blank>See <%= bike.model %> on Bike Index</a></li>
             <% }) %>
         </ul>
     </div>
@@ -16,7 +16,7 @@
 
 <script> 
     let bikes = <%- JSON.stringify(bikes) %>;
-    let map = <%- JSON.stringify(map.location) %>;
+    let locationMap = <%- JSON.stringify(map) %>;
 </script>
 <script src="/js/plotBikes.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=key%>&callback=initMap"></script>
