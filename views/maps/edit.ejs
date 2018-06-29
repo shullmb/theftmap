@@ -24,11 +24,15 @@
                     <textarea id="description" name="description" class="materialize-textarea"><%= map.description %></textarea>
                     <label for="description">Description</label>
                 </div>
-                <div class="input-field col s3 switch">
+                <div class="input-field center-align col s3 switch">
                     <p>
                     <label for="public">
                         Private
-                        <input id="public" name="public" type="checkbox" value="<%= map.public %>">
+                        <% if (!map.public) { %>
+                            <input id="public" name="public" type="checkbox" value="">
+                        <% }  else { %>    
+                            <input id="public" name="public" type="checkbox" checked value="">
+                        <% } %>
                         <span class="lever blue-grey lighten-3"></span>
                         Public
                     </label>

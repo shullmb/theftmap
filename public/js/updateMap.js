@@ -1,6 +1,14 @@
 
 $('#edit').on('submit', function(e) {
     e.preventDefault();
+    
+    if($('#public').is(':checked')) {
+        $('#public').val(true);
+    } else {
+        $('#public').val(false);
+        $('#public').prop('checked', true);
+    }
+
     let updatedInfo = $(this).serialize();
     let url = $(this).attr('action');
     $.ajax({
