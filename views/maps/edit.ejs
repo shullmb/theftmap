@@ -1,10 +1,10 @@
-<form action="/maps" method="POST">
+<form id="edit" action="/maps/<%= map.id %>" method="POST">
     <div class="row">
         <div class="col s12">
             <div class="col s12">
                 <h3>Edit Map:
                     <div class="input-field inline s6">
-                        <input id="title" type="text" placeholder="<%= map.title %>">
+                        <input id="title" name="title" type="text" value="<%= map.title %>">
                             <label for="title">Title</label>
                     </div>
                 </h3>
@@ -21,21 +21,27 @@
         <div class="col s12 m12 l8">
             <div class="row">
                 <div class="input-field col s9">
-                    <textarea id="description" class="materialize-textarea"><%= map.description %></textarea>
+                    <textarea id="description" name="description" class="materialize-textarea"><%= map.description %></textarea>
                     <label for="description">Description</label>
                 </div>
                 <div class="input-field col s3 switch">
                     <p>
                     <label for="public">
                         Private
-                        <input id="public" name="public" type="checkbox">
+                        <input id="public" name="public" type="checkbox" value="<%= map.public %>">
                         <span class="lever blue-grey lighten-3"></span>
                         Public
                     </label>
                     </p>
                 </div>
+                <div class="hidden">
+                    <input name="location" type="hidden" value="<%= map.location %>">
+                    <input name="lat" type="hidden" value="<%= map.lat %>">
+                    <input name="lng" type="hidden" value="<%= map.lng %>">
+                </div>
                 <div class="col s12 valign-wrapper">
-                    <button type="submit" class="col s12 btn btn-large blue-grey">Update Map Info</button>
+                    <button type="submit" class="col s9 btn btn-large blue-grey">Update Map Info</button>
+                    <a id="delete" href="/maps/<%= map.id %>" class="col s2 offset-s1 btn btn-large deep-orange">DELETE MAP</a>
                 </div>
             </div>
         </div>
@@ -48,3 +54,4 @@
 </script>
 <script src="/js/plotBikes.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=key%>&region=021&callback=initMap"></script>
+<script src="/js/updateMap.js"></script>

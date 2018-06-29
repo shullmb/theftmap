@@ -106,7 +106,7 @@ router.get('/:id', isLoggedIn, (req,res) => {
     })
 })
 
-// GET /maps/:id - show a specific map
+// GET /maps/:id/edit - edit a specific map
 router.get('/:id/edit', (req,res) => {
     db.map.findById(req.params.id).then( (map) => {
         map.getBikes().then( (bikes) => {
@@ -118,8 +118,23 @@ router.get('/:id/edit', (req,res) => {
     })
 })
 
+// PUT /maps/:id
+router.put('/:id', (req,res) => {
+    db.map.update({
+        title: req.body.title,
+        description: req.body.description,
+        public: req.body.public,
+        location: req.body.location,
+        lat: req.body.lat,
+        lng: req.body.lng
+    },{where: {id: req.params.id}}).then( (data) => {
+        res.sendStatus(200);
+    }).catch( (error) => {
+        req.flash('error', `${ error.message }.Please try again`)
+    })
+})
 
-
+// DELETE /maps/:id
 router.delete('/:id', (req,res) => {
     db.map.delete({
         where: {id: req.params.id}
