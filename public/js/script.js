@@ -219,13 +219,11 @@ const thftMapStyle = [
         ]
     }
 ]
-
 const greyPin = "/img/grey_pin.png";
 const doPin = "/img/do_pin.png";
 
 var map;
 var bounds;
-
 
 $(document).ready( function() {
     M.AutoInit();

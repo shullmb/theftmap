@@ -33,7 +33,7 @@ function initMap() {
             );
             map.setCenter(initialLocation);
             centerMarker.setPosition(map.center);
-            $('#location').val(initialLocation);
+            // $('#location').val(initialLocation);
         });
     }
 
@@ -47,14 +47,14 @@ function initMap() {
 }
 
 function geocodeAddress(geocoder, resultsMap) {
-    var address = document.getElementById('address').value;
-    geocoder.geocode({ 'address': address }, function (results, status) {
+    var location = document.getElementById('location').value;
+    geocoder.geocode({ 'address': location }, function (results, status) {
         if (status === 'OK') {
             // recenter map
             resultsMap.setCenter(results[0].geometry.location);
             centerMarker.setPosition(results[0].geometry.location);
-            // set hidden input
-            $('#location').val(address);
+            // // set hidden input
+            // $('#location').val(address);
         } else {
             console.log('error: ' + status);
         }

@@ -30,6 +30,9 @@ router.post('/', (req,res) => {
     db.map.create({
         location: req.body.location,
         radius: req.body.radius,
+        title: req.body.title,
+        description: req.body.description,
+        public: false,
         userId: req.user.id
     }).then( (map) => {
         let theftIds = [];
