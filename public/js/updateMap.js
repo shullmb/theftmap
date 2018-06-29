@@ -20,7 +20,7 @@ $('#delete').click( function(e){
     $.ajax({
         method: 'DELETE',
         url: url
-    }).then( function(data) {
+    }).done( function(data) {
         console.log(data);
         window.location = "/maps";
     })

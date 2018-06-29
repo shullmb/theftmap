@@ -136,16 +136,21 @@ router.put('/:id', (req,res) => {
 
 // DELETE /maps/:id
 router.delete('/:id', (req,res) => {
-    db.map.delete({
-        where: {id: req.params.id}
+    db.mapsBikes.destroy({
+        where: {mapId: req.params.id}
     }).then( (data) => {
-        console.log(data);
-        req.flash('success', 'Map deleted');
-        res.render('/maps');
-    }).catch( (error) => {
+        db.map.destroy({
+            where: {id: req.params.id}
+        })
+    }).then((data) => {
+        req.flash
+        res.sendStatus(200);
+    }).catch((error) => {
         req.flash('error', `${error.message}. Please try again`);
         res.render('/maps/edit');
     })
 })
 
 module.exports = router;
+
+
