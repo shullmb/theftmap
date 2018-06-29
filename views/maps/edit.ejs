@@ -1,0 +1,50 @@
+<form action="/maps" method="POST">
+    <div class="row">
+        <div class="col s12">
+            <div class="col s12">
+                <h3>Edit Map:
+                    <div class="input-field inline s6">
+                        <input id="title" type="text" placeholder="<%= map.title %>">
+                            <label for="title">Title</label>
+                    </div>
+                </h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m12 l8">
+            <div id="map">
+                <!-- render map -->
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s12 m12 l8">
+            <div class="row">
+                <div class="input-field col s9">
+                    <textarea id="description" class="materialize-textarea"><%= map.description %></textarea>
+                    <label for="description">Description</label>
+                </div>
+                <div class="input-field col s3 switch">
+                    <p>
+                    <label for="public">
+                        Private
+                        <input id="public" name="public" type="checkbox">
+                        <span class="lever blue-grey lighten-3"></span>
+                        Public
+                    </label>
+                    </p>
+                </div>
+                <div class="col s12 valign-wrapper">
+                    <button type="submit" class="col s12 btn btn-large blue-grey">Update Map Info</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script> 
+    let bikes = <%- JSON.stringify(bikes) %>;
+    let locationMap = <%- JSON.stringify(map) %>;
+</script>
+<script src="/js/plotBikes.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=key%>&region=021&callback=initMap"></script>

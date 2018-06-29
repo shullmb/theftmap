@@ -103,6 +103,18 @@ router.get('/:id', isLoggedIn, (req,res) => {
     })
 })
 
+// GET /maps/:id - show a specific map
+router.get('/:id/edit', (req,res) => {
+    db.map.findById(req.params.id).then( (map) => {
+        map.getBikes().then( (bikes) => {
+            res.render('maps/edit', {map,bikes, key: process.env.MAPS_KEY});
+        })
+    }).catch( (error) => {
+        req.flash('error', `${error.message}. Please Try again.`);
+        res.render('/maps/index');
+    })
+})
+
 
 
 router.delete('/:id', (req,res) => {

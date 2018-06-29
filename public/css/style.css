@@ -44,4 +44,11 @@ nav ul a {
     text-align: center;
 }
 
+.lever::before {
+    background-color: rgba(97, 124, 138, 0.207) !important;
+}
+.lever::after {
+    background-color: #617C8A !important;
+}
+
 #map { height: 400px; width: 100%;}

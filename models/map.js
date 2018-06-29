@@ -10,6 +10,14 @@ module.exports = (sequelize, DataTypes) => {
     lat: DataTypes.FLOAT,
     lng: DataTypes.FLOAT,
     radius: DataTypes.INTEGER,
+    title: { 
+      type: DataTypes.STRING,
+      validate: {
+        len: [1, 12]
+      }
+    },
+    description: DataTypes.TEXT,
+    public: DataTypes.BOOLEAN,
     userId: DataTypes.INTEGER
   }, {
     hooks: {
