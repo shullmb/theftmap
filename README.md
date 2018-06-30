@@ -1,7 +1,7 @@
 # WDI Project 2 - Bike Theft Triangulation Map
 
 ### Objective 
-Pull information about stolen bikes in your proximity to create a  Voronoi / Delaunay Projection overlay of map.
+Pull information about stolen bikes in your proximity to create a  Data Visualization overlays of the map.
 
 ### Project Planning & Tracking
 [Trello Board](https://trello.com/b/2pBLoWCO/wdi-project-2)
@@ -21,10 +21,9 @@ ___
 ### Models and Relations
 Model | Schema | Relation
 :------:|-----------|:----------:
-user | name:string, email:string, password:string | hasOne collection
-collection | | hasMany map
-map| lat:float, lng:float, zoom:index | hasMany bike
-bike| lat:float, lng:float, | belongsTo map
+user | name:string, email:string, password:string | hasMany maps
+map| location:string, lat:float, lng:float, radius:integer, title:string, description:text,public:boolean, userId:integer  | belongsToMany bikes
+bike| model:string, lat:float, lng:float, url:string | belongsToMany maps
 
 ___
 ### Bike Index Query Params
@@ -33,8 +32,16 @@ ___
 - distance 
 
 ___
+### Challenges
+- async
+- unix UTC timestamps
+---
+### Future Release
+- support for date filter
+- possible switch to another map api or d3-geo
+---
 ### Gratitude
-
+- WDI 19
 
 
 

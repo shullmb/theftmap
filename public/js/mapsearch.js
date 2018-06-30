@@ -16,7 +16,7 @@ function initMap() {
     );
 
     centerMarker = new google.maps.Marker({
-        position: center,
+        position: searchCenter,
         map,
         icon: greyPin
     })
