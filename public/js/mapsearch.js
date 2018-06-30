@@ -1,14 +1,12 @@
-var map;
 var geocoder;
 var centerMarker;
-
 const searchCenter = { lat: 47.60621, lng: -122.33207 };
 
 function initMap() {
     map = new google.maps.Map(
         document.getElementById('map'),{
             zoom: 10,
-            center: center,
+            center: searchCenter,
             styles: thftMapStyle,
             mapTypeControl: false,
             scaleControl: false,
@@ -60,4 +58,5 @@ function geocodeAddress(geocoder, resultsMap) {
         }
     });
 }
+
 

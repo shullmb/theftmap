@@ -20,7 +20,15 @@ function initMap() {
         let mrk = new google.maps.Marker({ position: latLng, map: map, icon: doPin });
         bounds.extend(latLng);
         map.fitBounds(bounds);
+
+        mrk.addListener('click', function () {
+            let info = new google.maps.InfoWindow({
+                content: `<p><a href='${bike.url}' target='_blank'>${bike.model}</a></p>`
+            });
+            info.open(map, mrk);
+        });
     });
+
 }
 
 function geocodeAddress(geocoder, resultsMap) {

@@ -1,3 +1,4 @@
+// Map Variables
 const thftMapStyle = [
     {
         "elementType": "geometry",
@@ -221,9 +222,27 @@ const thftMapStyle = [
 ]
 const greyPin = "/img/grey_pin.png";
 const doPin = "/img/do_pin.png";
-
 var map;
 var bounds;
+
+// Max Title Length Helper for new/edit
+const maxTitleLength = 12;
+
+$('#title').keyup(function () {
+    let titleLength = $(this).val().length;
+
+    if (titleLength > maxTitleLength) {
+        $('#title-length').addClass('red-text')
+    } else {
+        $('#title-length').removeClass('red-text')
+    }
+
+    titleLength = maxTitleLength - titleLength;
+
+    $('#title-length').text(titleLength);
+})
+
+
 
 $(document).ready( function() {
     M.AutoInit();

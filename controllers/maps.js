@@ -107,7 +107,7 @@ router.get('/:id', isLoggedIn, (req,res) => {
 })
 
 // GET /maps/:id/edit - edit a specific map
-router.get('/:id/edit', (req,res) => {
+router.get('/:id/edit', isLoggedIn, (req,res) => {
     db.map.findById(req.params.id).then( (map) => {
         map.getBikes().then( (bikes) => {
             res.render('maps/edit', {map,bikes, key: process.env.MAPS_KEY});
@@ -124,9 +124,6 @@ router.put('/:id', (req,res) => {
         title: req.body.title,
         description: req.body.description,
         public: req.body.public,
-        location: req.body.location,
-        lat: req.body.lat,
-        lng: req.body.lng
     },{where: {id: req.params.id}}).then( (data) => {
         res.sendStatus(200);
     }).catch( (error) => {
