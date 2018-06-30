@@ -1,5 +1,11 @@
 var bikeLatLngs = [];
 var bikeVoronoiData = []
+const dataState = {
+    heatmap: false,
+    delaunay: false,
+    voronoi: false
+}
+var voronoi = d3.voronoi();
 var heatmap;
 
 function initMap() {
@@ -8,7 +14,7 @@ function initMap() {
     
     map = new google.maps.Map(
         document.getElementById('map'), {
-            zoom: 10,
+            zoom: 15,
             center: searchCenter,
             styles: thftMapStyle,
             mapTypeControl: false,
@@ -38,62 +44,7 @@ function initMap() {
             info.open(map, mrk);
         });
     });
-
-    // heatmap = new google.maps.visualization.HeatmapLayer({
-    //     data: bikeData,
-    //     map: map
-    // });
-    var voronoi = d3.voronoi();
-
-    let polygons = voronoi.polygons(bikeVoronoiData);
-    console.log(polygons);
-    let polyCoords = _.chunk(_.flattenDeep(voronoi.triangles(bikeVoronoiData)),2)
-    // console.log(polyCoords);
-    
-    let a = [];
-    polyCoords.forEach( (coord) => {
-        let b = {lat: coord[0], lng: coord[1]}
-        a.push(b)
-    })
-    
-    let triangleCoords = _.chunk(a,3);
-    
-    // .map( function(coord, i) {
-    //     if (i%2 === 0) {
-    //         return {lng: coord};
-    //     } else {
-    //         return {lat: coord};
-    //     }
-    // })
-    // console.log((_.chunk(_.chunk(polyCoords, 2),3));
-
-    // Define the LatLng coordinates for the polygon.
-    // delaunayTriangles.forEach( (arr) => {
-    //     arr.forEach( (coords) => {
-    //         polyCoords.push
-    //     })
-    // })
-
-    // var triangleCoords = [
-    //     { lat: 25.774, lng: -80.190 },
-    //     { lat: 18.466, lng: -66.118 },
-    //     { lat: 32.321, lng: -64.757 }
-    // ];
-
-    // Construct the polygon.
-    triangleCoords.forEach( (triangle) => {
-        let triangleFill = new google.maps.Polygon({
-            paths: triangleCoords,
-            strokeColor: '#617C8A',
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillColor: '#FB572F',
-            fillOpacity: 1,
-        });
-        triangleFill.setMap(map);
-    } )
-
-
+        
 }
 
 function geocodeAddress(geocoder, resultsMap) {
@@ -107,3 +58,43 @@ function geocodeAddress(geocoder, resultsMap) {
         }
     });
 }
+
+function delaunayTriangles() {
+    if (dataState.delaunay == false) {
+        dataState.delaunay = true;
+        let polyCoords = _.chunk(_.flattenDeep(voronoi.triangles(bikeVoronoiData)), 2)
+        let coordObjects = [];
+
+        polyCoords.forEach((coord) => {
+            let coordObj = { lat: coord[0], lng: coord[1] }
+            coordObjects.push(coordObj);
+        })
+
+        let triangleCoords = _.chunk(coordObjects, 3);
+    
+        map.data.setStyle({ strokeColor: '#76ff03', fillColor: '#617C8A' })
+        map.data.add({ geometry: new google.maps.Data.Polygon(triangleCoords) });
+    } else {
+        map.data.forEach(function (dataPoint) {
+            map.data.remove(dataPoint);
+        });
+        dataState.delaunay = false;
+    }
+}
+
+function heatMap() {
+    if (dataState.heatmap == false) {
+        heatmap = new google.maps.visualization.HeatmapLayer({
+            data: bikeLatLngs,
+            radius: 30
+        });    
+        heatmap.setMap(map)
+        dataState.heatmap = true;
+    } else {
+        heatmap.setMap(null);
+        dataState.heatmap = false;
+    }
+}
+
+document.getElementById('delaunay').addEventListener('click', delaunayTriangles);
+document.getElementById('heatmap').addEventListener('click', heatMap);
