@@ -8,15 +8,15 @@ Pull information about stolen bikes in your proximity to create a  Data Visualiz
 
 ### Wireframes
 [Adobe XD Prototyping](https://xd.adobe.com/view/62c33da6-84f4-41d5-5e6e-0b4706678d63-14f2/)
-
-### APIs Needed
+___
+### APIs
 - Bike Index API
 - Map API to be selected 
-
-#### Options and npm packages for Map API
-- geocoder
-- node-geocoder
-- osm
+___
+### Resources and Libraries used
+- jQuery
+- d3
+- lodash
 ___
 ### Models and Relations
 Model | Schema | Relation
@@ -24,6 +24,25 @@ Model | Schema | Relation
 user | name:string, email:string, password:string | hasMany maps
 map| location:string, lat:float, lng:float, radius:integer, title:string, description:text,public:boolean, userId:integer  | belongsToMany bikes
 bike| model:string, lat:float, lng:float, url:string | belongsToMany maps
+
+___
+### Routes
+|METHOD| ROUTE|
+|:-----|:-----:|
+| GET   | /     |
+| GET   | /auth/signup  |
+| GET   | /auth/login   |
+| POST  | /auth/signup  |
+| POST  | /auth/login   |
+| GET   | /auth/logout  |
+| GET   | /maps |
+| GET   | /maps/new |
+| POST  | /maps |
+| GET   | /maps/:id |
+| GET   | /maps/:id/edit    |
+| PUT   | /maps/:id |
+| DELETE| /maps/:id |
+
 
 ___
 ### Bike Index Query Params
@@ -35,10 +54,14 @@ ___
 ### Challenges
 - async
 - unix UTC timestamps
+- 
 ---
 ### Future Release
-- support for date filter
-- possible switch to another map api or d3-geo
+- [ ] support for date filter
+- [ ] possible switch to another map api or d3-geo
+- [ ] Visualization calculations take water features into account
+- [ ] Manhattan distance to take road/city blocks into account
+
 ---
 ### Gratitude
 - WDI 19

@@ -1,4 +1,4 @@
-// Map Variables
+// Map Globals for show/new/edit views
 const thftMapStyle = [
     {
         "elementType": "geometry",
@@ -238,12 +238,10 @@ $('#title').keyup(function () {
     }
 
     titleLength = maxTitleLength - titleLength;
-
     $('#title-length').text(titleLength);
 })
 
-
-
+// initialize Materialize scripts once DOM loaded
 $(document).ready( function() {
     M.AutoInit();
     $('.sidenav').sidenav();

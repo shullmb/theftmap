@@ -3,8 +3,7 @@ var centerMarker;
 const searchCenter = { lat: 47.60621, lng: -122.33207 };
 
 function initMap() {
-    map = new google.maps.Map(
-        document.getElementById('map'),{
+    map = new google.maps.Map(document.getElementById('map'),{
             zoom: 10,
             center: searchCenter,
             styles: thftMapStyle,
@@ -21,8 +20,7 @@ function initMap() {
         icon: greyPin
     })
 
-    console.log(centerMarker);
-    
+    // Recenter based on IP    
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
             var initialLocation = new google.maps.LatLng(
@@ -31,7 +29,6 @@ function initMap() {
             );
             map.setCenter(initialLocation);
             centerMarker.setPosition(map.center);
-            // $('#location').val(initialLocation);
         });
     }
 
@@ -51,8 +48,6 @@ function geocodeAddress(geocoder, resultsMap) {
             // recenter map
             resultsMap.setCenter(results[0].geometry.location);
             centerMarker.setPosition(results[0].geometry.location);
-            // // set hidden input
-            // $('#location').val(address);
         } else {
             console.log('error: ' + status);
         }

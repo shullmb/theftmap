@@ -1,19 +1,16 @@
 var bikeLatLngs = [];
-var bikeVoronoiData = []
-const dataState = {
-    heatmap: false,
-    delaunay: false,
-    voronoi: false
-}
+var bikeVoronoiData = [];
+var markers = [];
+const dataState = {markers: true, heatmap: false, delaunay: false, voronoi: false}
 var voronoi = d3.voronoi();
 var heatmap;
+var centerMarker;
 
 function initMap() {
 
     let searchCenter = new google.maps.LatLng(locationMap.lat,locationMap.lng);
     
-    map = new google.maps.Map(
-        document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
             zoom: 15,
             center: searchCenter,
             styles: thftMapStyle,
@@ -23,15 +20,20 @@ function initMap() {
         }
     );
 
+    // drop pin for center
+    centerMarker = new google.maps.Marker({ position: searchCenter, map, icon: greyPin})
+    
     bounds = new google.maps.LatLngBounds();
     
     bikes.forEach((bike) => {
+        // collect for d3 visualization
         bikeVoronoiData.push([bike.lat,bike.lng])
+        
+        // collect for google visualization
         let latLng = new google.maps.LatLng(bike.lat,bike.lng);
-        // collect for data viz
         bikeLatLngs.push(latLng);
 
-        // drop pins for each bike
+        // drop pins for each bike and adjust map bounds to fit data
         let mrk = new google.maps.Marker({ position: latLng, map: map, icon: doPin });
         bounds.extend(latLng);
         map.fitBounds(bounds);
@@ -43,8 +45,9 @@ function initMap() {
             });
             info.open(map, mrk);
         });
+
+        markers.push(mrk);
     });
-        
 }
 
 function geocodeAddress(geocoder, resultsMap) {
@@ -59,8 +62,36 @@ function geocodeAddress(geocoder, resultsMap) {
     });
 }
 
-function delaunayTriangles() {
-    if (dataState.delaunay == false) {
+function toggleMarkers() {
+    if (!dataState.markers) {
+        markers.forEach( (marker) => {
+            marker.setMap(map);
+        })
+        dataState.markers = true;
+    } else {
+        markers.forEach((marker) => {
+            marker.setMap(null);
+        })
+        dataState.markers = false;
+    }
+}
+
+function toggleHeatMap() {
+    if (!dataState.heatmap) {
+        heatmap = new google.maps.visualization.HeatmapLayer({
+            data: bikeLatLngs,
+            radius: 30
+        });    
+        heatmap.setMap(map)
+        dataState.heatmap = true;
+    } else {
+        heatmap.setMap(null);
+        dataState.heatmap = false;
+    }
+}
+
+function toggleDelaunayTriangles() {
+    if (!dataState.delaunay) {
         dataState.delaunay = true;
         let polyCoords = _.chunk(_.flattenDeep(voronoi.triangles(bikeVoronoiData)), 2)
         let coordObjects = [];
@@ -75,26 +106,30 @@ function delaunayTriangles() {
         map.data.setStyle({ strokeColor: '#76ff03', fillColor: '#617C8A' })
         map.data.add({ geometry: new google.maps.Data.Polygon(triangleCoords) });
     } else {
-        map.data.forEach(function (dataPoint) {
-            map.data.remove(dataPoint);
-        });
+        clearShapes();
         dataState.delaunay = false;
     }
 }
 
-function heatMap() {
-    if (dataState.heatmap == false) {
-        heatmap = new google.maps.visualization.HeatmapLayer({
-            data: bikeLatLngs,
-            radius: 30
-        });    
-        heatmap.setMap(map)
-        dataState.heatmap = true;
+function toggleVoronoiPolygons() {
+    if (!dataState.voronoi) {
+        // code to visualize voronoi polygons
+        console.log(voronoi.polygons(bikeVoronoiData));
+        dataState.voronoi = true;        
     } else {
-        heatmap.setMap(null);
-        dataState.heatmap = false;
+        clearShapes();
+        dataState.voronoi = false;        
     }
 }
 
-document.getElementById('delaunay').addEventListener('click', delaunayTriangles);
-document.getElementById('heatmap').addEventListener('click', heatMap);
+function clearShapes() {
+    map.data.forEach(function (dataPoint) {
+        map.data.remove(dataPoint);
+    });
+}
+
+// Make those button work!
+document.getElementById('markers').addEventListener('click', toggleMarkers);
+document.getElementById('heatmap').addEventListener('click', toggleHeatMap);
+document.getElementById('delaunay').addEventListener('click', toggleDelaunayTriangles);
+document.getElementById('voronoi').addEventListener('click', toggleVoronoiPolygons);
