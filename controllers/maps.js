@@ -4,6 +4,7 @@ const async = require('async');
 const _ =require('lodash');
 const db = require('../models');
 const isLoggedIn = require('../middleware/isLoggedIn');
+const isCurrentUser = require('../middleware/isCurrentUser');
 const router = express.Router();
 
 // TO DO: ADD isLoggedIn as middleware for all routes
@@ -95,7 +96,7 @@ router.post('/', (req,res) => {
 })
 
 // GET /maps/:id - show a specific map
-router.get('/:id', isLoggedIn, (req,res) => {
+router.get('/:id', isLoggedIn, isCurrentUser, (req,res) => {
     db.map.findById(req.params.id).then( (map) => {
         map.getBikes().then( (bikes) => {
             res.render('maps/show', {map,bikes, key: process.env.MAPS_KEY});
@@ -107,7 +108,7 @@ router.get('/:id', isLoggedIn, (req,res) => {
 })
 
 // GET /maps/:id/edit - edit a specific map
-router.get('/:id/edit', isLoggedIn, (req,res) => {
+router.get('/:id/edit', isLoggedIn, isCurrentUser, (req,res) => {
     db.map.findById(req.params.id).then( (map) => {
         map.getBikes().then( (bikes) => {
             res.render('maps/edit', {map,bikes, key: process.env.MAPS_KEY});
