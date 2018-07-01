@@ -80,7 +80,7 @@ function toggleHeatMap() {
     if (!dataState.heatmap) {
         heatmap = new google.maps.visualization.HeatmapLayer({
             data: bikeLatLngs,
-            radius: 30
+            radius: 50
         });    
         heatmap.setMap(map)
         dataState.heatmap = true;
@@ -93,6 +93,7 @@ function toggleHeatMap() {
 function toggleDelaunayTriangles() {
     if (!dataState.delaunay) {
         dataState.delaunay = true;
+        // calculate and coerce d3 data to work with google maps
         let polyCoords = _.chunk(_.flattenDeep(voronoi.triangles(bikeVoronoiData)), 2)
         let coordObjects = [];
 
@@ -112,12 +113,40 @@ function toggleDelaunayTriangles() {
 }
 
 function toggleVoronoiPolygons() {
+    let polyArray = voronoi.polygons(bikeVoronoiData);
+    let polygons = [];
+    // coerce data to work with googlemaps
+    polyArray.forEach((arr) => {
+        let coordObjects = [];
+        // stop short! last item in each polygon array is a data obj with center point that breaks everything
+        for (i = 0; i < arr.length; i++) {
+            // remove null/undefined
+            arr = _.compact(arr);
+            // create lat/lng literals for google maps paths
+            let coordObj = { lat: arr[i][0], lng: arr[i][1] }
+            coordObjects.push(coordObj);
+        }
+        polygons.push(coordObjects);
+    })
     if (!dataState.voronoi) {
         // code to visualize voronoi polygons
-        console.log(voronoi.polygons(bikeVoronoiData));
+        // console.log(voronoi.polygons(bikeVoronoiData));
+        polygons.forEach( (polygon) => {
+            let poly = new google.maps.Polygon({
+                paths: polygon,
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.8,
+                strokeWeight: 3,
+                fillColor: '#FF0000',
+                fillOpacity: 0.1
+            });
+            poly.setMap(map);
+        })
         dataState.voronoi = true;        
     } else {
-        clearShapes();
+        polygons.forEach( (poly) => {
+            poly.setMap(null);
+        })
         dataState.voronoi = false;        
     }
 }

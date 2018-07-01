@@ -17,6 +17,7 @@ ___
 - jQuery
 - d3
 - lodash
+- Google Maps JavaScript API
 ___
 ### Models and Relations
 Model | Schema | Relation
@@ -54,7 +55,7 @@ ___
 ### Challenges
 - async
 - unix UTC timestamps
-- 
+- d3 => google maps
 ---
 ### Future Release
 - [ ] support for date filter
