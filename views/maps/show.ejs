@@ -4,17 +4,18 @@
         <a id="delete" class="btn waves-effect waves-light btn-small deep-orange right" href="/maps/<%= map.id%>"><i class="material-icons">delete_forever</i></a>
         <a class="btn btn-small waves-effect waves-light blue-grey right" href="/maps/<%= map.id%>/edit"><i class="material-icons">edit</i></a>
         </h3>
-        <!-- map content -->
-        <div id="map"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col s12">
-                    <button id="markers" class="col s12 m3 btn btn-large waves-effect waves-light blue-grey">MARKERS</button>
-                    <button id="heatmap" class="col s12 m3 btn btn-large waves-effect waves-light blue-grey">HEATMAP</button>
-                    <button id="delaunay" class="col s12 m3 btn btn-large waves-effect waves-light blue-grey">DELAUNAY</button>
-                    <button id="voronoi" class="col s12 m3 btn btn-large waves-effect waves-light blue-grey">VORONOI</button>
-                </div>
+        <div class="row">
+            <div class="col s12">
+                <button id="markers" class="col s6 m3 btn btn-large waves-effect waves-light deep-orange">MARKERS</button>
+                <button id="heatmap" class="col s6 m3 btn btn-large waves-effect waves-light blue-grey">HEATMAP</button>
+                <button id="delaunay" class="col s6 m3 btn btn-large waves-effect waves-light blue-grey">DELAUNAY</button>
+                <button id="voronoi" class="col s6 m3 btn btn-large waves-effect waves-light blue-grey">VORONOI</button>
             </div>
+        </div>
+        <div id="map">
+        <!-- map content -->
+        </div>
+        <!-- <div class="container"> -->
             <div class="row">
                 <div class="s12">
                     <h4><%= map.location %></h4>
@@ -24,13 +25,13 @@
                     <p><%= map.description%></p>
                 </div>
             </div>
-        </div>
+        <!-- </div>-->
     </div>
     <div class=" col s12 l4">
         <!-- list of data points -->
         <div class="collection">            
             <% bikes.forEach( (bike) => { %>
-            <a class="collection-item blue-grey lighten-5 black-text" href="<%= bike.url %>" target=_blank> <%= bike.model %> on Bike Index <i class="material-icons right">chevron_right</i></a>
+            <a class="collection-item blue-grey lighten-5 black-text" href="<%= bike.url %>" target=_blank><span style="text-overflow: ellipsis"><%= bike.model %></span> <i class="material-icons right">chevron_right</i></a>
             <% }) %>
         </div>
     </div>
@@ -40,8 +41,8 @@
     let bikes = <%- JSON.stringify(bikes) %>;
     let locationMap = <%- JSON.stringify(map) %>;
 </script>
+<script src="/js/updateMap.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
 <script src="https://d3js.org/d3-voronoi.v1.min.js"></script>
 <script src="/js/plotBikes.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%=key%>&libraries=visualization&callback=initMap"></script>
-<script src="/js/updateMap.js"></script>

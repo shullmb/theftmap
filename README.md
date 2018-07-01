@@ -56,12 +56,21 @@ ___
 - async
 - unix UTC timestamps
 - d3 => google maps
----
-### Future Release
-- [ ] support for date filter
+___
+### Known Issues
+- Empty Search Area
+- Geocoder errors with no warning => lack of Lat Lng
+- Can't set Headers after they are set
+
+___
+### Future Releases
+- [ ] support for date filter using MomentTZ.js 
+- [ ] Integrate COORD Bike-share API to find bike rentals on your route
 - [ ] possible switch to another map api or d3-geo
 - [ ] Visualization calculations take water features into account
 - [ ] Manhattan distance to take road/city blocks into account
+- [ ] Strava Passport strategy
+- [ ] User Profile - update info, password etc.
 
 ---
 ### Gratitude
