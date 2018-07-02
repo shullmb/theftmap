@@ -78,7 +78,7 @@ router.post('/', (req,res) => {
     
             // use async to return an array of bike objects to create entries in db
             async.parallel(async.reflectAll(individualBikeRequests), (err, results) => {
-                // lodash method to return any falsey values
+                // lodash method to remove any falsey values
                 let bikes = _.compact(results);
                 bikes.forEach( (bike) => {
                     // find or create bike with same bikeIndexId
