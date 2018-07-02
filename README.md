@@ -43,6 +43,9 @@ map| location:string, lat:float, lng:float, radius:integer, title:string, descri
 bike| model:string, lat:float, lng:float, url:string | `belongsToMany map`
 mapsBikes | mapId:integer, bikeId:integer | join table for map/bike M:M association
 
+![ER Diagram](https://github.com/shullmb/readme_screenshots/blob/master/tm/er_diag.png?raw=true)
+
+
 ___
 ### Routes in use
 |METHOD| ROUTE|
