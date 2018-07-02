@@ -64,6 +64,7 @@ ___
 
 ___
 ### Future Releases
+- [ ] further cleanup of styling
 - [ ] public feed once middleware debugged
 - [ ] support for date filter using MomentTZ.js 
 - [ ] Integrate COORD Bike-share API to find bike rentals on your route

@@ -1,57 +1,67 @@
-<form id="edit" action="/maps/<%= map.id %>" method="POST">
-    <div class="row">
-        <div class="col s12">
-            <div class="col s12">
-                <h3>Edit Map:
+<div class="row">
+    <div class="col s12 m8">
+        <form id="edit" action="/maps/<%= map.id %>" method="POST">
+            <div class="row">
+                <div class="col s12">
+                    Edit Map: 
                     <div class="input-field inline s6">
                         <input id="title" name="title" type="text" value="<%= map.title %>">
                             <label for="title">Title</label>
                             <span class="helper-text">Characters left: <span id="title-length">12</span> </span>
                     </div>
-                </h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12 m12 l8">
-            <div id="map">
-                <!-- render map -->
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12 m12 l8">
             <div class="row">
-                <div class="input-field col s9">
-                    <textarea id="description" name="description" class="materialize-textarea"><%= map.description %></textarea>
-                    <label for="description">Description</label>
-                </div>
-                <div class="input-field center-align col s3 switch">
-                    <p>
-                    <label for="public">
-                        Private
-                        <% if (!map.public) { %>
-                            <input id="public" name="public" type="checkbox" value="">
-                        <% }  else { %>    
-                            <input id="public" name="public" type="checkbox" checked value="">
-                        <% } %>
-                        <span class="lever blue-grey lighten-3"></span>
-                        Public
-                    </label>
-                    </p>
-                </div>
-                <div class="hidden">
-                    <input name="location" type="hidden" value="<%= map.location %>">
-                    <input name="lat" type="hidden" value="<%= map.lat %>">
-                    <input name="lng" type="hidden" value="<%= map.lng %>">
-                </div>
-                <div class="col s12 valign-wrapper">
-                    <button type="submit" class="col s9 btn btn-large blue-grey">Update Map Info</button>
-                    <a id="delete" href="/maps/<%= map.id %>" class="col s2 offset-s1 btn btn-large deep-orange">DELETE MAP</a>
+                <div class="col s12">
+                    <div id="map">
+                        <!-- render map -->
+                    </div>
                 </div>
             </div>
-        </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="row">
+                        <div class="input-field col s9">
+                            <textarea id="description" name="description" class="materialize-textarea"><%= map.description %></textarea>
+                            <label for="description">Description</label>
+                        </div>
+                        <div class="input-field center-align col s3 switch">
+                            <p>
+                            <label for="public">
+                                Private
+                                <% if (!map.public) { %>
+                                    <input id="public" name="public" type="checkbox" value="">
+                                <% }  else { %>    
+                                    <input id="public" name="public" type="checkbox" checked value="">
+                                <% } %>
+                                <span class="lever blue-grey lighten-3"></span>
+                                Public
+                            </label>
+                            </p>
+                        </div>
+                        <div class="hidden">
+                            <input name="location" type="hidden" value="<%= map.location %>">
+                            <input name="lat" type="hidden" value="<%= map.lat %>">
+                            <input name="lng" type="hidden" value="<%= map.lng %>">
+                        </div>
+                        <div class="col s12 valign-wrapper">
+                            <button type="submit" class="col s9 btn btn-large blue-grey">Update Map Info</button>
+                            <a id="delete" href="/maps/<%= map.id %>" class="col s2 offset-s1 btn btn-large deep-orange">DELETE MAP</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-</form>
+    <div class="col s12 m4">
+        <a href="/maps/<%= map.id %>" class="col s12 waves-effect waves-light btn btn-large blue-grey"><i class="material-icons left">chevron_left</i>Back to Map</a>   
+        <br><br>     
+        <h4>Edit your Map information</h4>
+        <p><i class="material-icons">edit</i>&nbsp;Update the <strong>title</strong> to for fast identification from your map index</p>
+        <p><i class="material-icons">edit</i>&nbsp;Add a description to record your observations or make note of hotspots to avoid. Maybe it's time to try one of those bike share programs?</p>
+        <p><i class="material-icons">edit</i>&nbsp;By default, your maps are <strong>private</strong>. If you would like to share them to the forthcoming public feed, pop that lever over to <strong>public</strong>!</p>
+    </div>
+</div>
 
 <script> 
     let bikes = <%- JSON.stringify(bikes) %>;
