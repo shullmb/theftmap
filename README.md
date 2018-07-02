@@ -41,7 +41,7 @@ Model | Schema | Relation
 :------:|-----------|:----------:
 user | name:string, email:string, password:string | `hasMany map`
 map| location:string, lat:float, lng:float, radius:integer, title:string, description:text, public:boolean, userId:integer  | `belongsTo user` `belongsToMany bike`
-bike| model:string, lat:float, lng:float, url:string | `belongsToMany map`
+bike| model:string, lat:float, lng:float, url:string, bikeIndexId:integer | `belongsToMany map`
 mapsBikes | mapId:integer, bikeId:integer | join table for map/bike M:M association
 
 ![ER Diagram](https://github.com/shullmb/readme_screenshots/blob/master/tm/er_diag.png?raw=true)
