@@ -26,7 +26,7 @@ ___
 ### Resources and Libraries used
 - NodeJS
 - Express
-- Google Maps JavaScript API
+- Google Maps JavaScript API (and Geocoding)
 - async
 - node-geocoder
 - d3js
