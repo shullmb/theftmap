@@ -1,10 +1,10 @@
 # WDI Project 2 - Bike Theft Triangulation Map
 ### Objective 
-#####To create a fullstack Node application using Express that pulls information about bike thefts and displays it graphically.
+##### To create a fullstack Node application using Express that pulls information about bike thefts and displays it graphically.
 [THFTMPPR](ttps://thftmapper.herokuapp.com/)
 ![markers](/public/img/markers.png)
 
-####Requirements for this project include:
+#### Requirements for this project include:
 - [x] Have at least 2 models
 - [x] Include sign up/log in functionality, with hashed passwords & an authorization flow
 - [x] Incorporate at least one API
@@ -172,8 +172,8 @@ ___
 
 ---
 ### Gratitude
-Special thank yous to:
-- WDI 19 
+Special thank-yous to:
+- WDI Seattle 19 
 - [@sixhops](https://github.com/sixhops) && [@kyleavb](https://github.com/kyleavb) for guidance
 - 404 image - [unsplash - Lance Grandahl @lg17](https://unsplash.com/photos/-0D1nNY8pOU)
 
