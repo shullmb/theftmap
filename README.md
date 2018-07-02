@@ -1,7 +1,7 @@
 # WDI Project 2 - Bike Theft Triangulation Map
 
 ### Objective 
-Pull information about stolen bikes in your proximity to create a  Data Visualization overlays of the map.
+To create a fullstack application that pulls information about bike thefts and displays it graphically.
 
 ### Project Planning & Tracking
 [Trello Board](https://trello.com/b/2pBLoWCO/wdi-project-2)
@@ -64,6 +64,7 @@ ___
 
 ___
 ### Future Releases
+- [ ] public feed once middleware debugged
 - [ ] support for date filter using MomentTZ.js 
 - [ ] Integrate COORD Bike-share API to find bike rentals on your route
 - [ ] possible switch to another map api or d3-geo
@@ -74,7 +75,10 @@ ___
 
 ---
 ### Gratitude
-- WDI 19
+- WDI 19 
+- @sixhops && @kyleavb for guidance
+- 404 image - [unsplash - Lance Grandahl @lg17](https://unsplash.com/photos/-0D1nNY8pOU)
+
 
 
 

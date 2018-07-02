@@ -51,4 +51,11 @@ nav ul a {
     background-color: #617C8A !important;
 }
 
+.input-field input[type=text]:focus + label,
+.input-field input[type=email]:focus + label,
+.input-field input[type=password]:focus + label {
+    border-bottom: 1px solid red !important;
+    box-shadow: 0 1px 0 0 #000 !important;
+}
+
 #map { height: 400px; width: 100%;}

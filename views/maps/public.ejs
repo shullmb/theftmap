@@ -1,0 +1,18 @@
+<h1>MAP INDEX</h1>
+
+  <div class="row">
+<% maps.forEach( (map, i) => { %>
+    <a href="/maps/<%= map.id %>">
+      <div class="col s6 m6 l3">
+        <div class="card">
+          <div class="card-image">
+            <img src="/img/theftmap.png">
+            <span class="card-title"> Map <%= i + 1 %> </span>
+          </div>
+          <div class="card-content">
+            <p><%= map.title %></p>
+          </div>
+        </div>
+      </div>
+    </a>
+<% }) %> 

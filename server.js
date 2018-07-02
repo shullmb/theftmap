@@ -37,7 +37,9 @@ app.use( (req, res, next) => {
 
 // GET / 
 app.get('/', (req,res) => {
-    res.render('index');
+    // this use of locals is specific to express-ejs-layouts
+    let locals = {title: 'Welcome to THFTMPPR'}
+    res.render('index', locals);
 })
 
 app.use('/auth', require('./controllers/auth'));

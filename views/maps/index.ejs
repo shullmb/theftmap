@@ -1,12 +1,15 @@
-<h1>MAP INDEX</h1>
-
-  <div class="row">
-<% maps.forEach( (map, i) => { %>
+<div class="row">
+  <div class="col s12">
+    <h1>Your Map Collection</h1>
+  </div>
+</div>
+<div class="row"> 
+  <% maps.forEach( (map, i) => { %>
     <a href="/maps/<%= map.id %>">
       <div class="col s6 m6 l3">
         <div class="card">
           <div class="card-image">
-            <img src="/img/theftmap.png">
+            <img src="/img/mapIndex.png">
             <span class="card-title"> Map <%= i + 1 %> </span>
             <a href="/maps/<%= map.id %>/edit" class="btn-floating halfway-fab waves-effect waves-light blue-grey"><i class="material-icons">edit</i></a>
           </div>
@@ -16,17 +19,17 @@
         </div>
       </div>
     </a>
-<% }) %> 
-    <div class="col s6 m6 l3 scale-transition scale-in">
-      <div class="card">
-        <div class="card-image">
-          <img src="/img/theftmap.png">
-          <span class="card-title"></span>
-          <a href="/maps/new" class="btn-floating halfway-fab waves-effect waves-light deep-orange"><i class="material-icons">add</i></a>
-        </div>
-        <div class="card-content">
-          <p>Create a new map</p>
-        </div>
+  <% }) %> 
+  <div class="col s6 m6 l3 scale-transition scale-in">
+    <div class="card">
+      <div class="card-image">
+        <img src="/img/newMap.png">
+        <span class="card-title"></span>
+        <a href="/maps/new" class="btn-floating halfway-fab waves-effect waves-light deep-orange"><i class="material-icons">add</i></a>
+      </div>
+      <div class="card-content">
+        <p>Create a new map</p>
       </div>
     </div>
   </div>
+</div>

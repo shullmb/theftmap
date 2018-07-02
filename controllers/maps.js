@@ -7,27 +7,35 @@ const isLoggedIn = require('../middleware/isLoggedIn');
 const isCurrentUser = require('../middleware/isCurrentUser');
 const router = express.Router();
 
-// TO DO: ADD isLoggedIn as middleware for all routes
-
 // GET /maps
 router.get('/', isLoggedIn, (req,res) => {
+    // this use of locals is specific to express-ejs-layouts
+    let locals = {title: 'Map Index'};
     db.user.findById(req.user.id).then((user) => {
         user.getMaps().then((maps) => {
-            res.render('maps/index', {maps});
+            res.render('maps/index', {maps, locals});
         })
     })
 })
 
-// GET /maps
+// GET /maps/public
+// on hold until auth middleware debugged
+// router.get('/public', (req, res) => {
+//     db.map.findAll({
+//         where: {public: true}
+//     }).then((maps) => {
+//         res.render('maps/public', {maps})
+//     })
+// })
+
+// GET /maps/new
 router.get('/new', isLoggedIn, (req,res) => {
-    res.render('maps/new', {key: process.env.MAPS_KEY});
+    let locals = {title: 'Create a Map'};
+    res.render('maps/new', {key: process.env.MAPS_KEY, locals});
 })
 
 // POST /maps - post map specs to db
 router.post('/', (req,res) => {
-        // TO DO: add variables back into the bikeIndexList uri
-    // TO DO: trouble shoot res.send
-    console.log(req.body.location, req.body.radius);
     db.map.create({
         location: req.body.location,
         radius: req.body.radius,
@@ -37,7 +45,7 @@ router.post('/', (req,res) => {
         userId: req.user.id
     }).then( (map) => {
         let theftIds = [];
-        let bikeIndexList = `https://bikeindex.org:443/api/v3/search?page=1&per_page=25&location=${encodeURI(map.location)}&distance=${map.radius}&stolenness=proximity`;
+        let bikeIndexList = `https://bikeindex.org:443/api/v3/search?page=1&per_page=50&location=${encodeURI(map.location)}&distance=${map.radius}&stolenness=proximity`;
     
         request(bikeIndexList, (err, response, body) => {
             let thefts = JSON.parse(body).bikes;
@@ -97,11 +105,14 @@ router.post('/', (req,res) => {
 
 // GET /maps/:id - show a specific map
 router.get('/:id', isLoggedIn, isCurrentUser, (req,res) => {
+
+    let locals = {title: 'Map Details'};
     db.map.findById(req.params.id).then( (map) => {
         map.getBikes().then( (bikes) => {
-            res.render('maps/show', {map,bikes, key: process.env.MAPS_KEY});
+            res.render('maps/show', {map, bikes, locals, key: process.env.MAPS_KEY});
         })
     }).catch( (error) => {
+        // locals = {title: 'Map Index'}
         req.flash('error', `${error.message}. Please Try again.`);
         res.render('/maps/index');
     })
@@ -109,13 +120,15 @@ router.get('/:id', isLoggedIn, isCurrentUser, (req,res) => {
 
 // GET /maps/:id/edit - edit a specific map
 router.get('/:id/edit', isLoggedIn, isCurrentUser, (req,res) => {
+    let locals = {title: 'Edit your map'};
     db.map.findById(req.params.id).then( (map) => {
         map.getBikes().then( (bikes) => {
-            res.render('maps/edit', {map,bikes, key: process.env.MAPS_KEY});
+            res.render('maps/edit', {map, bikes, locals, key: process.env.MAPS_KEY});
         })
     }).catch( (error) => {
+        locals.title = 'Map Index'
         req.flash('error', `${error.message}. Please Try again.`);
-        res.render('/maps/index');
+        res.render('/maps/index', locals);
     })
 })
 
@@ -148,6 +161,7 @@ router.delete('/:id', (req,res) => {
         res.render('/maps/edit');
     })
 })
+
 
 module.exports = router;
 

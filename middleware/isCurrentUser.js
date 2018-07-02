@@ -9,5 +9,8 @@ module.exports = (req, res, next) => {
         } else {
             next();
         }
+    }).catch( (error) => {
+        req.flash('error', error.message)
+        res.redirect('/maps');
     })
 }

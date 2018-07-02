@@ -5,12 +5,16 @@ const router = express.Router();
 
 // GET /auth/signup - send signup form
 router.get('/signup', (req,res) => {
-    res.render('auth/signup')
+    // these use of locals is specific to express-ejs-layouts
+    let locals = {title: 'Sign Up'};
+    res.render('auth/signup', locals)
 })
 
 // GET /auth/login - send login form
 router.get('/login', (req,res) => {
-    res.render('auth/login')
+    // these use of locals is specific to express-ejs-layouts
+    let locals = { title: 'Log In'};
+    res.render('auth/login', locals)
 })
 
 // POST /auth/sign in - redirect to map new
