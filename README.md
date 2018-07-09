@@ -103,7 +103,7 @@ request(bikeIndexList, (err, response, body) => {
 
     // use async to return an array of bike objects to create entries in db
     async.parallel(async.reflectAll(individualBikeRequests), (err, results) => {
-        // lodash method to return any falsey values
+        // lodash method to remove any falsey values
         let bikes = _.compact(results);
         bikes.forEach( (bike) => {
             // find or create bike with same bikeIndexId
@@ -176,6 +176,7 @@ ___
 Special thank-yous to:
 - WDI Seattle 19 
 - [@sixhops](https://github.com/sixhops) && [@kyleavb](https://github.com/kyleavb) for guidance
+- [BikeIndex](https://bikeindex.org) - Vaccinate your Bike!
 - 404 image - [unsplash - Lance Grandahl @lg17](https://unsplash.com/photos/-0D1nNY8pOU)
 
 
