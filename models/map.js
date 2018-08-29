@@ -6,6 +6,12 @@ const geocoder = NodeGeocoder(geoOptions);
 
 module.exports = (sequelize, DataTypes) => {
   var map = sequelize.define('map', {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+      allowNull: false
+    },
     location: DataTypes.STRING,
     lat: DataTypes.FLOAT,
     lng: DataTypes.FLOAT,
