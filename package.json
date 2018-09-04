@@ -4,7 +4,7 @@
   "description": "a web app for bike theft data visualization",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "node server.js",
     "test": "NODE_ENV=test mocha --exit"
   },
   "repository": {
