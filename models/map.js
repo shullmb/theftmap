@@ -1,6 +1,9 @@
 'use strict';
 const NodeGeocoder = require('node-geocoder');
-const geoOptions = {provider: 'google'};
+const geoOptions = {
+  provider: 'google',
+  apiKey: process.env.GEO_KEY
+};
 
 const geocoder = NodeGeocoder(geoOptions);
 
